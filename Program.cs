@@ -21,13 +21,17 @@ namespace DPLL_DLIS
         {
             try
             {
-                //if(args.Length<2)
+                //if(args.Length==0)
                 //{
-                //    Console.WriteLine("Вы не выбради CNF file");
-                //    return;
+                //    throw new Exception("Вы не выбради CNF file");
                 //}
+                //string fileName = args[0];
 
                 string fileName = "/home/julija/Рабочий стол/DPLL_DLIS/cnf/quinn.cnf";
+                if(!File.Exists(fileName))
+                {
+                    throw new Exception("Файл "+fileName+" не найден.");
+                }
                 var cnf = DimacsParser.ReadFile(fileName);
   
                 bool sat = SatSolver.SolveDpll(cnf);
