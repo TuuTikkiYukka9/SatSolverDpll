@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-
 
 namespace DPLL_DLIS
 {
@@ -29,7 +26,7 @@ namespace DPLL_DLIS
                     assignment.UnitPropagate(cnf);
                     while(cnf.IsUnsat())
                     {
-                        //есть хоть один рещающий литерал, то откатываемся назад
+                        //есть хоть один решающий литерал, то откатываемся назад
                         if(assignment.IsAnyDecideLiteral())
                         {
                             assignment.BackjumpDpll(cnf);

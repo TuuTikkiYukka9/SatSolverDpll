@@ -6,7 +6,9 @@ using DPLL_DLIS;
 namespace DPLL_DLIS
 {
 
-    // Literal - пропозициональная переменная, либо её отрицание.
+    /// <summary>
+    /// Literal - пропозициональная переменная, либо её отрицание.
+    /// </summary>
     public class Literal
     {
         private bool _isPositive;
@@ -43,9 +45,9 @@ namespace DPLL_DLIS
 
         public override bool Equals(Object obj)
         {
-            if(!(obj is Literal)) return false;
+            if(obj is not Literal) return false;
             var literal = (Literal)obj;
-            return (_var.Equals(literal._var) && _isPositive==literal._isPositive);
+            return _var.Equals(literal._var) && _isPositive==literal._isPositive;
         }
 
         public override int GetHashCode()
@@ -55,7 +57,7 @@ namespace DPLL_DLIS
 
         public override string ToString()
         {
-            return _isPositive ? _var.ToString() : "-("+_var.ToString()+")";
+            return _isPositive ? _var.ToString() : "-(" + _var.ToString() + ")";
         }
     }
 }

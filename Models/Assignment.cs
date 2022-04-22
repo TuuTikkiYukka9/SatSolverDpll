@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using DPLL_DLIS;
 
 namespace DPLL_DLIS
 {
@@ -32,7 +30,7 @@ namespace DPLL_DLIS
         public Assignment()
         {
             assigmentStack = new Stack<AssignmentItem>();
-            decideCount =0; backjumpCount = 0; unitPropagateCount =0;
+            decideCount = 0; backjumpCount = 0; unitPropagateCount = 0;
         }
 
         /// <summary>
@@ -40,7 +38,7 @@ namespace DPLL_DLIS
         /// </summary>
         public bool IsAnyDecideLiteral()
         {
-            return assigmentStack.Where(x=>x.IsDecide).Count()>0;
+            return assigmentStack.Where(x => x.IsDecide).Count() > 0;
         }
 
         /// <summary>
@@ -49,11 +47,11 @@ namespace DPLL_DLIS
         public void BackjumpDpll(CNF cnf)
         {
             bool isFound = false;
-            while(!isFound)
+            while (!isFound)
             {
-                if(!assigmentStack.TryPop(out var popItem)) break;//вообще исключение следует генерить
-                
-                if(popItem.IsDecide)
+                if (!assigmentStack.TryPop(out var popItem)) break;//вообще исключение следует генерить
+
+                if (popItem.IsDecide)
                 {
                     var lit = new Literal(popItem.Literal.Var, true);//!popItem.Literal.isPositive);
                     lit.SetValue(false);
@@ -89,9 +87,9 @@ namespace DPLL_DLIS
         /// <param name="cnf"></param>
         public void UnitPropagate(CNF cnf)
         {
-            foreach(var cl in cnf.Clauses)
+            foreach (var cl in cnf.Clauses)
             {
-                if(cl.TryGetUnit(out var lit))
+                if (cl.TryGetUnit(out var lit))
                 {
                     lit.SetValue(true);
                     var literal = new Literal(lit.Var, !lit.IsPositive);
@@ -104,17 +102,17 @@ namespace DPLL_DLIS
 
         public string GetStatistics()
         {
-            return "decide="+decideCount.ToString()+"\n"+
-                    "backjump="+backjumpCount.ToString()+"\n"+
-                    "unitPropagate="+unitPropagateCount.ToString()+"\n";
+            return "decide=" + decideCount.ToString() + "\n" +
+                    "backjump=" + backjumpCount.ToString() + "\n" +
+                    "unitPropagate=" + unitPropagateCount.ToString() + "\n";
         }
 
         private string GetAssigmentState(string ruleName = "")
         {
-            string result = ruleName+" [M]: ";
-            foreach(var el in assigmentStack)
+            string result = ruleName + " [M]: ";
+            foreach (var el in assigmentStack)
             {
-                result+=el.Literal.ToString()+(el.IsDecide?"(B)":"")+"; ";
+                result += el.Literal.ToString() + (el.IsDecide ? "(B)" : "") + "; ";
             }
             return result;
         }

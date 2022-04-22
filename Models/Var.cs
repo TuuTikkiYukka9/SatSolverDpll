@@ -1,14 +1,10 @@
 using System;
-using System.Collections.Generic;
-using DPLL_DLIS;
-
 
 namespace DPLL_DLIS
 {
-    //Var - пропозициональные переменные
-    // identifier : an unique integer ID
-    // assignment : an assignment (True, False or None)
-    //public enum Ternary{ False = 0, True =1, None=2};
+    /// <summary>
+    /// Var - пропозициональные переменные
+    /// </summary>
     public class Var
     {
         private uint _id; 
@@ -33,7 +29,7 @@ namespace DPLL_DLIS
 
         public override string ToString()
         {
-            return (Assignment == null ? "u" : Assignment==false ? "-" : "")+_id.ToString();
+            return (Assignment == null ? "u" : Assignment==false ? "-" : "") + _id.ToString();
         }
     }
 }

@@ -11,7 +11,6 @@ namespace DPLL_DLIS
     {
         private List<Var> variables;
         private List<Clause> clauses;
-        //int N;
         public List<Clause> Clauses {get=>clauses;}
 
         /// <summary>
@@ -57,7 +56,7 @@ namespace DPLL_DLIS
         /// <returns>Выбранный литерал</returns>
         public Literal Dlis()
         {
-            Dictionary<Literal, uint> literalsCount = new Dictionary<Literal, uint>();
+            Dictionary<Literal, uint> literalsCount = new();
 
             foreach(var cl in clauses)
             {
@@ -76,10 +75,6 @@ namespace DPLL_DLIS
                     }  
                 }
             }
-            /*foreach(var d in literalsCount)
-            {
-                Console.WriteLine(d.Key.ToString()+":"+d.Value.ToString());
-            }*/
             var maxCount = literalsCount.Max(x=>x.Value);
             return literalsCount.First(x=>x.Value==maxCount).Key;
         }

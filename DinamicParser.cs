@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
-using DPLL_DLIS;
 
 namespace DPLL_DLIS
 {
@@ -14,22 +13,22 @@ namespace DPLL_DLIS
     {
         static public CNF ReadFile(string fileName)
         {
-            StreamReader reader = new StreamReader(fileName);
+            StreamReader reader = new(fileName);
             
-            List<string> comments = new List<string>();
-            List<Clause> clauses  = new List<Clause>();
-            List<Var> variables = new List<Var>();
-            Regex regexSpaces = new Regex("[ ]+");
-            Regex regexLeadSpaces = new Regex("^[ ]+");
+            List<string> comments = new();
+            List<Clause> clauses  = new();
+            List<Var> variables = new();
+            Regex regexSpaces = new("[ ]+");
+            Regex regexLeadSpaces = new("^[ ]+");
             bool IsComments = true;
             bool IsHeader = true;
             uint N = 0;
             uint countDisjunct = 0;
-            string strLine = "";
+            string strLine;
             int countLine = 0;
             while((strLine = reader.ReadLine()) != null)
             {
-                if(!String.IsNullOrWhiteSpace(strLine))
+                if(!string.IsNullOrWhiteSpace(strLine))
                 {
                     strLine = regexLeadSpaces.Replace(strLine, "");
                     strLine = regexSpaces.Replace(strLine, " ");
@@ -82,7 +81,6 @@ namespace DPLL_DLIS
             }
             if(clauses.Count<1) throw new Exception("В входных данных не найдены дизъюнкты.");
             Console.WriteLine("N = "+N.ToString()+" M = "+countDisjunct.ToString());
-            //Console.WriteLine("Количесто комментариев:" + comments.Count.ToString());
             Console.WriteLine("Количесто дизъюнктов:" + clauses.Count.ToString());
             return new CNF(clauses, variables);
         }
